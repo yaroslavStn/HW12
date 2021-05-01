@@ -8,12 +8,6 @@ public class CallLog {
     private Duration duration;
     private Status status;
 
-    public enum Status{
-        incoming,
-        outgoing,
-        missed
-    }
-
     public Status getStatus() {
         return status;
     }
