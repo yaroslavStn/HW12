@@ -7,18 +7,16 @@ import java.util.List;
 
 public class Random {
     private static final String[] names = {"vasia", "petya", "jake", "masha"};
-    private static final String[] numbers = {"05055551212", "05055551213", "05055551214", "05055551215", "05055551216"};
+    private static final String[] numbers = {"+111", "+222", "+333", "+444", "+555","+666","+000"};
     private static final String[] messages = {"privet", "poka", "true", "false", "ok"};
-    private static Calendar randomDate = new GregorianCalendar(2021, Calendar.MAY, 30, (int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60));
     private static Status[] status = Status.values();
 
     public List<Contact> createContactList() {
         List<Contact> result = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (String number : numbers) {
             int r = (int) (Math.random() * names.length);
             String randomName = names[r];
-            r = (int) (Math.random() * numbers.length);
-            String randomNums = numbers[r];
+            String randomNums = number;
             result.add(new Contact(randomName, randomNums));
         }
         return result;
@@ -26,8 +24,9 @@ public class Random {
 
     public List<CallLog> createCallLogsList(List<Contact> contacts) {
         List<CallLog> result = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
+        Calendar randomDate = new GregorianCalendar();
+        randomDate.set(2021, Calendar.APRIL, 30, (int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60));
+        for (int i = 0; i < 25; i++) {
             int r = (int) (Math.random() * contacts.size());
             Contact randomContact = contacts.get(r);
             Status randomStatus = status[(int) (Math.random() * status.length)];
@@ -36,20 +35,22 @@ public class Random {
             if (randomStatus == Status.missed) duration = Duration.ZERO;
             result.add(new CallLog(randomContact, randomDate, duration, randomStatus));
             randomDate.add(Calendar.SECOND, d);
-            randomDate.add(Calendar.MINUTE, (int) (Math.random() * 600));
+         //   System.out.println(randomDate.getTime());;
+           randomDate.add(Calendar.MINUTE, (int) (Math.random() * 600));
         }
 
         return result;
     }
 
     public List<Message> createMessagesList(List<Contact> contacts) {
+        Calendar randomDate = new GregorianCalendar(2021, Calendar.APRIL, 30, (int) (Math.random() * 24), (int) (Math.random() * 60), (int) (Math.random() * 60));
         List<Message> result = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 25; i++) {
             Contact randomContact = contacts.get((int) (Math.random() * contacts.size()));
             String randomMessage = messages[(int) (Math.random() * messages.length)];
             Status randomStatus = status[(int) (Math.random() * status.length)];
             result.add(new Message(randomContact, randomMessage, randomDate,randomStatus));
-            randomDate.add(Calendar.MINUTE, -(int) (Math.random() * 600));
+           // randomDate.add(Calendar.MINUTE, -(int) (Math.random() * 600));
         }
         return result;
     }

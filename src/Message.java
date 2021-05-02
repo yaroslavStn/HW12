@@ -31,11 +31,10 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "contact=" + contact +
-                ", message='" + message + '\'' +
-                ", date=" + date.getTime() +
-                ", status=" + status +
-                '}';
+        return
+                 contact +
+                 message +
+                 date.getTime() +
+                 status;
     }
 }
