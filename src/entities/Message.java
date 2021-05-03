@@ -1,4 +1,7 @@
+package entities;
+
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Message {
     private Contact contact;
@@ -36,5 +39,19 @@ public class Message {
                  message +
                  date.getTime() +
                  status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return Objects.equals(contact, message.contact) &&
+                Objects.equals(date, message.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(contact, date);
     }
 }

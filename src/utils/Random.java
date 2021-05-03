@@ -1,5 +1,11 @@
+package utils;
+
+import entities.CallLog;
+import entities.Contact;
+import entities.Message;
+import entities.Status;
+
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,8 +22,7 @@ public class Random {
         for (String number : numbers) {
             int r = (int) (Math.random() * names.length);
             String randomName = names[r];
-            String randomNums = number;
-            result.add(new Contact(randomName, randomNums));
+            result.add(new Contact(randomName, number));
         }
         return result;
     }

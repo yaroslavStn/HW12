@@ -1,5 +1,6 @@
+package entities;
+
 import java.time.Duration;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Objects;
 
