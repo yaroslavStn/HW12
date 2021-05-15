@@ -5,24 +5,26 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class CallLog {
-    private Contact contact;
+    private String name;
+    private String number;
     private Calendar date;
     private Duration duration;
     private Status status;
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public CallLog(Contact contact, Calendar date, Duration duration, Status status) {
-        this.contact = contact;
+    public CallLog(String name, String number, Calendar date, Duration duration, Status status) {
+        this.name = name;
+        this.number = number;
         this.date = date;
         this.duration = duration;
         this.status = status;
     }
 
-    public Contact getContact() {
-        return contact;
+    public String getName() {
+        return name;
+    }
+
+    public String getNumber() {
+        return number;
     }
 
     public Calendar getDate() {
@@ -33,13 +35,17 @@ public class CallLog {
         return duration;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
-        return "" +
-                contact +
+        return name +
+                number +
                 date.getTime() +
                 duration.getSeconds() +
-                 status;
+                status;
     }
 
     @Override
@@ -47,11 +53,15 @@ public class CallLog {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CallLog callLog = (CallLog) o;
-        return Objects.equals(contact, callLog.contact);
+        return Objects.equals(name, callLog.name) &&
+                Objects.equals(number, callLog.number) &&
+                Objects.equals(date, callLog.date) &&
+                Objects.equals(duration, callLog.duration) &&
+                status == callLog.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contact);
+        return Objects.hash(name, number, date, duration, status);
     }
 }

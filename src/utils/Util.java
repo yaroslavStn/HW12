@@ -1,7 +1,6 @@
 package utils;
 
 import entities.CallLog;
-import entities.Contact;
 import entities.Message;
 
 import java.util.*;
@@ -9,15 +8,15 @@ import java.util.*;
 
 public class Util {
 
-    public static Map<Contact, List<CallLog>> groupedLog(Collection<CallLog> callLogs) {
+    public static Map<String, List<CallLog>> groupedLog(Collection<CallLog> callLogs) {
 
-        Map<Contact, List<CallLog>> output = new HashMap<>();
+        Map<String, List<CallLog>> output = new HashMap<>();
         for (CallLog callLog : callLogs) {
-            List<CallLog> exist = output.get(callLog.getContact());
+            List<CallLog> exist = output.get(callLog.getNumber());
             if (exist == null) {
                 List<CallLog> group = new ArrayList<>();
                 group.add(callLog);
-                output.put(callLog.getContact(), group);
+                output.put(callLog.getNumber(), group);
             } else {
                 exist.add(callLog);
             }
@@ -25,15 +24,15 @@ public class Util {
         return output;
     }
 
-    public static Map<Contact, List<Message>> groupedMessage(Collection<Message> messages) {
+    public static Map<String, List<Message>> groupedMessage(Collection<Message> messages) {
 
-        Map<Contact, List<Message>> output = new HashMap<>();
+        Map<String, List<Message>> output = new HashMap<>();
         for (Message message : messages) {
-            List<Message> exist = output.get(message.getContact());
+            List<Message> exist = output.get(message.getNumber());
             if (exist == null) {
                 List<Message> group = new ArrayList<>();
                 group.add(message);
-                output.put(message.getContact(), group);
+                output.put(message.getNumber(), group);
             } else {
                 exist.add(message);
             }
@@ -41,12 +40,12 @@ public class Util {
         return output;
     }
 
-    public static List<Counter> sortedMessages(Map<Contact, List<Message>> map) {
+    public static List<Counter> sortedMessages(Map<String, List<Message>> map) {
         List<Counter> list = new ArrayList<>();
-        for (Map.Entry<Contact, List<Message>> entry : map.entrySet()) {
+        for (Map.Entry<String, List<Message>> entry : map.entrySet()) {
             Integer count = entry.getValue().size();
-            Object object = entry.getKey();
-            list.add(new Counter(object, count));
+            String number = entry.getKey();
+            list.add(new Counter(number, count));
         }
         list.sort(new Comparator<Counter>() {
             @Override
@@ -57,12 +56,12 @@ public class Util {
         return list;
     }
 
-    public static List<Counter> sortedCallLog(Map<Contact, List<CallLog>> map) {
+    public static List<Counter> sortedCallLog(Map<String, List<CallLog>> map) {
         List<Counter> list = new ArrayList<>();
-        for (Map.Entry<Contact, List<CallLog>> entry : map.entrySet()) {
+        for (Map.Entry<String, List<CallLog>> entry : map.entrySet()) {
             Integer count = entry.getValue().size();
-            Object object = entry.getKey();
-            list.add(new Counter(object, count));
+            String number = entry.getKey();
+            list.add(new Counter(number, count));
         }
         list.sort(new Comparator<Counter>() {
             @Override
@@ -75,20 +74,20 @@ public class Util {
 
 
     public static class Counter {
-        private Object object;
+        private String number;
         private Integer count;
 
-        Counter(Object object, Integer count) {
-            this.object = object;
-            this.count = count;
-        }
-
-        public Object getObject() {
-            return object;
+        public String getNumber() {
+            return number;
         }
 
         public Integer getCount() {
             return count;
+        }
+
+        public Counter(String number, Integer count) {
+            this.number = number;
+            this.count = count;
         }
     }
 }

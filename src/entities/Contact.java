@@ -29,12 +29,12 @@ public class Contact {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contact contact = (Contact) o;
-        return /*Objects.equals(name, contact.name) &&*/
+        return Objects.equals(name, contact.name) &&
                 Objects.equals(number, contact.number);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(/*name,*/ number);
+        return Objects.hash(name, number);
     }
 }
