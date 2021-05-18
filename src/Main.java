@@ -19,7 +19,7 @@ public class Main {
         for (Message o : list) {
             if (predicate.test(o)){
                 result.add(o);
-            };
+            }
         }
         return result;
 
@@ -80,6 +80,32 @@ public class Main {
         sortedList = Util.sortedCallLog(outputCall);
         finalList.clear();
         printer(sortedList, finalList);
+        queueExample(callLogs);
+        queueExampleLIFO(messages);
+
+
+    }
+
+    private void queueExampleLIFO(List<Message> messages) {
+        Deque<Message> messageDeque = new ArrayDeque<>();
+        for (int i = 0; i < messages.size(); i++) {
+            if (i % 2 == 0) {
+                messageDeque.addFirst(messages.get(i));
+            }else {
+                messageDeque.addLast(messages.get(i));
+            }
+        }
+       messageDeque.removeLast();
+    }
+
+    private void queueExample(List<CallLog> callLogs) {
+        CallLog callLogForRemove = callLogs.get(3);
+        Queue<CallLog> callLogQueue = new LinkedList<>();
+        for (CallLog callLog : callLogs) callLogQueue.add(callLog);
+        callLogQueue.remove();
+        callLogQueue.remove(callLogForRemove);
+      // System.out.println(callLogQueue.peek());
+
     }
 
     private void printer(List<Util.Counter> sortedList, List<Util.Counter> finalList) {
