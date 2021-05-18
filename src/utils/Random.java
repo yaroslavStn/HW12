@@ -6,10 +6,7 @@ import entities.Message;
 import entities.Status;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class Random {
     private static final String[] names = {"vasia", "petya", "jake", "masha"};
@@ -25,6 +22,14 @@ public class Random {
             result.add(new Contact(randomName, number));
         }
         return result;
+    }
+    public Calendar randomDate (){
+        return new GregorianCalendar(2021,
+                Calendar.APRIL,
+                (int) (Math.random() * 30),
+                (int) (Math.random() * 24),
+                (int) (Math.random() * 60),
+                (int) (Math.random() * 60));
     }
 
     public List<CallLog> createCallLogsList(List<Contact> contacts) {
@@ -80,5 +85,10 @@ public class Random {
 
         }
         return result;
+    }
+
+    public String randomPhone() {
+      int  r = (int) (Math.random() * numbers.length);
+    return numbers[r];
     }
 }

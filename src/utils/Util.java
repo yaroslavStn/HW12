@@ -4,6 +4,7 @@ import entities.CallLog;
 import entities.Message;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 
 public class Util {
@@ -71,6 +72,27 @@ public class Util {
         });
         return list;
     }
+    public static Collection <CallLog> callLogFilter (Collection <CallLog> callLogs, Predicate<CallLog> predicate){
+        Collection <CallLog> result = new ArrayList<>();
+        for (CallLog log : callLogs) {
+            if (predicate.test(log)){
+                result.add(log);
+            }
+        }
+
+        return result;
+    }
+    public static Collection <Message> messageFilter (Collection <Message> messages, Predicate<Message> predicate){
+        Collection <Message> result = new ArrayList<>();
+        for (Message message : messages) {
+            if (predicate.test(message)){
+                result.add(message);
+            }
+        }
+
+        return result;
+    }
+
 
 
     public static class Counter {

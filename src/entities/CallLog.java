@@ -64,4 +64,9 @@ public class CallLog {
     public int hashCode() {
         return Objects.hash(name, number, date, duration, status);
     }
+    public boolean equalsByDate (Calendar dateRequest) {
+                return
+                Objects.equals(dateRequest, this.date);
+
+    }
 }

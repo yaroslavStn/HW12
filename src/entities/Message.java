@@ -65,4 +65,7 @@ public class Message {
     public int hashCode() {
         return Objects.hash(name, number, message, date, status);
     }
+    public boolean containsPhoneOfMessage (String number){
+        return this.number.contains(number);
+    }
 }

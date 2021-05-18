@@ -5,6 +5,7 @@ import utils.Random;
 import utils.Util;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,10 +14,10 @@ public class Main {
 
     }
 
-    private static List<Message> containsMessage (List<Message> list, String request) {
+    private List<Message> findImMessages(List<Message> list,  Predicate <Message> predicate) {
         List<Message> result = new ArrayList<>();
         for (Message o : list) {
-            if (o.getName().contains(request)){
+            if (predicate.test(o)){
                 result.add(o);
             };
         }
@@ -29,9 +30,30 @@ public class Main {
         List<Contact> contacts = random.createContactList();
         List<CallLog> callLogs = random.createCallLogsList(contacts);
         List<Message> messages = random.createMessagesList(contacts);
-        List<Message> list = containsMessage(messages, "pet");
+
+
+        List<Message> list = findImMessages(messages, (Message message) -> {
+            return message.getMessage().contains("pet");
+        });
         Map<String, List<CallLog>> outputCall = Util.groupedLog(callLogs);
         Map<String, List<Message>> outputMessage = Util.groupedMessage(messages);
+        Calendar randomDate= random.randomDate();
+        String randomPhone = random.randomPhone();
+
+
+        Collection<CallLog> filteredCallLog = Util.callLogFilter(callLogs, new Predicate<CallLog>() {
+            @Override
+            public boolean test(CallLog callLog) {
+                return callLog.equalsByDate(randomDate);
+            }
+        });
+
+        Collection <Message> filteredMessage = Util.messageFilter(messages, new Predicate<Message>() {
+            @Override
+            public boolean test(Message message) {
+                return message.containsPhoneOfMessage(randomPhone);
+            }
+        });
 
 
 
